@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/landing-page-components-styles/StartForFree.css';
-import heroImg from '../../assets/landing-page-images/hero-sec-1.png';
+import footerImg from '../../assets/landing-page-images/footer.png';
 
 const StartForFree = () => {
   return (
@@ -11,12 +11,14 @@ const StartForFree = () => {
           <p>Започни безплатно</p>
         </header>
         <nav>
-          <button type="button">Регистрирай се</button>
+          <a href="/register">
+            <button type="button">Регистрирай се</button>
+          </a>
         </nav>
       </article>
       <aside className="start-free__image">
         <figure>
-          <img src={heroImg} alt="София маршрути" />
+          <img src={footerImg} alt="София маршрути" />
         </figure>
       </aside>
     </section>

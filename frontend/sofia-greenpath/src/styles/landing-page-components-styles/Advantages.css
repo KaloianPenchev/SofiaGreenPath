@@ -22,7 +22,7 @@
     gap: 2rem;
   }
   
-  .feature-image {
+  .feature-image img{
     width: 35rem;
     height: 18.75rem;
     background-color: #f5f5f5;

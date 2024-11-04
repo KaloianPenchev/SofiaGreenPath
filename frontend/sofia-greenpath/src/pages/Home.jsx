@@ -66,15 +66,15 @@ const Home = () => {
             </li>
             <li>
               <button className="icon-button bookmark-button">
-                <FontAwesomeIcon icon={faBookmark} />
+                <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
               </button>
-              <h1 className="icon-text">Favorites</h1>
+              <h1 className="icon-text">Скорошни</h1>
             </li>
             <li>
               <button className="icon-button location-button">
-                <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
+                <FontAwesomeIcon icon={faBookmark} />
               </button>
-              <h1 className="icon-text">Recent</h1>
+              <h1 className="icon-text">Любими</h1>
             </li>
           </ul>
           <ul>
@@ -88,7 +88,7 @@ const Home = () => {
               <button className="icon-button gear-button">
                 <FontAwesomeIcon icon={faGear} />
               </button>
-              <h1 className="icon-text">Settings</h1>
+              <h1 className="icon-text">Настройки</h1>
             </li>
           </ul>
         </nav>

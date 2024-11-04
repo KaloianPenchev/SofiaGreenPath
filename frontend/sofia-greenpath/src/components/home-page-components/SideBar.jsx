@@ -18,7 +18,7 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isFavoritesExpanded, setIsFavoritesExpanded] = useState(false);
   const [favorites, setFavorites] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage] = useState('');
   const token = localStorage.getItem('token');
 
   const fetchFavorites = async () => {
@@ -29,7 +29,6 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
       setFavorites(response.data);
     } catch (error) {
       console.error("Error fetching favorite searches:", error.message);
-      setErrorMessage("Failed to fetch favorite searches.");
     }
   };
 
@@ -44,8 +43,8 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
         { search },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      fetchFavorites(); // Refresh favorites after updating
-      fetchRecentSearches(); // Refresh recent searches after updating
+      fetchFavorites(); 
+      fetchRecentSearches(); 
     } catch (error) {
       console.error("Error toggling favorite:", error.message);
     }
@@ -64,29 +63,25 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
         <ul className="navigation-list">
           <li>
             <button type="button" className="nav-item" onClick={() => setIsSearchExpanded(!isSearchExpanded)}>
-              <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
-              <h1>Recent Searches</h1>
+            <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
+            <h1>Скорошни търсения</h1>
             </button>
             <button className="expand-loc-btn" onClick={() => setIsSearchExpanded(!isSearchExpanded)}>
               <FontAwesomeIcon icon={isSearchExpanded ? faAngleUp : faAngleDown} />
             </button>
             {isSearchExpanded && (
               <ul className="recent-searches-list">
-                {recentSearches.length > 0 ? (
-                  recentSearches.map((search, index) => (
-                    <li key={index} className="recent-search-item">
-                      {search}
-                      <button 
-                        className="favorite-button"
-                        onClick={() => toggleFavorite(search)}
-                      >
-                        <FontAwesomeIcon className="star-icon" icon={favorites.includes(search) ? solidStar : regularStar} />
-                      </button>
-                    </li>
-                  ))
-                ) : (
-                  <li className="no-recent-searches">No recent searches</li>
-                )}
+                {recentSearches.map((search, index) => (
+                  <li key={index} className="recent-search-item">
+                    {search}
+                    <button 
+                      className="favorite-button"
+                      onClick={() => toggleFavorite(search)}
+                    >
+                      <FontAwesomeIcon style={{color: '#d1d1d1'}} icon={favorites.includes(search) ? solidStar : regularStar} />
+                    </button>
+                  </li>
+                ))}
               </ul>
             )}
           </li>
@@ -94,28 +89,24 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
           <li>
             <button type="button" className="nav-item" onClick={() => setIsFavoritesExpanded(!isFavoritesExpanded)}>
               <FontAwesomeIcon icon={faBookmark} />
-              <h1>Favorites</h1>
+              <h1>Любими маршрути</h1>
             </button>
             <button className="expand-loc-btn" onClick={() => setIsFavoritesExpanded(!isFavoritesExpanded)}>
               <FontAwesomeIcon icon={isFavoritesExpanded ? faAngleUp : faAngleDown} />
             </button>
             {isFavoritesExpanded && (
               <ul className="favorites-list">
-                {favorites.length > 0 ? (
-                  favorites.map((search, index) => (
-                    <li key={index} className="favorite-search-item">
-                      {search}
-                      <button 
-                        className="favorite-button"
-                        onClick={() => toggleFavorite(search)}
-                      >
-                        <FontAwesomeIcon className="star-icon" icon={solidStar} />
-                      </button>
-                    </li>
-                  ))
-                ) : (
-                  <li className="no-favorites">No favorite searches</li>
-                )}
+                {favorites.map((search, index) => (
+                  <li key={index} className="favorite-search-item">
+                    {search}
+                    <button 
+                      className="favorite-button"
+                      onClick={() => toggleFavorite(search)}
+                    >
+                      <FontAwesomeIcon style={{color: '#ffd036'}} icon={solidStar} />
+                    </button>
+                  </li>
+                ))}
               </ul>
             )}
           </li>
@@ -129,18 +120,18 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
           <li>
             <button type="button" className="footer-item" style={{ marginBottom: '-1rem' }}>
               <FontAwesomeIcon icon={faCircleQuestion} />
-              <h1>Help</h1>
+              <h1>Помощ</h1>
             </button>
           </li>
           <li>
             <button type="button" className="footer-item">
               <FontAwesomeIcon icon={faGear} />
-              <h1>Settings</h1>
+              <h1>Настройки</h1>
             </button>
           </li>
           <li>
             <button type="button" className="footer-item user-profile">
-              <h1>User Name</h1>
+              <h1>Иван Иванов</h1>
               <h1>•••</h1>
             </button>
           </li>

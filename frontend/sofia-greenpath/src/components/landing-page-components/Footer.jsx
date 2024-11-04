@@ -36,22 +36,22 @@ const Footer = () => {
         <nav className="social-links">
           <ul>
             <li>
-              <a href="https://facebook.com" aria-label="Facebook">
+              <a href="https://facebook.com" aria-label="Facebook" target="_blank">
                 <FontAwesomeIcon icon={faFacebook} size="2x" color='black'/>
               </a>
             </li>
             <li>
-              <a href="https://twitter.com" aria-label="Twitter">
+              <a href="https://twitter.com" aria-label="Twitter" target="_blank">
                 <FontAwesomeIcon icon={faTwitter} size="2x" color='black'/>
               </a>
             </li>
             <li>
-              <a href="https://instagram.com" aria-label="Instagram">
+              <a href="https://instagram.com" aria-label="Instagram" target="_blank">
                 <FontAwesomeIcon icon={faInstagram} size="2x" color='black'/>
               </a>
             </li>
             <li>
-              <a href="https://youtube.com" aria-label="YouTube">
+              <a href="https://youtube.com" aria-label="YouTube" target="_blank">
                 <FontAwesomeIcon icon={faYoutube} size="2x" color='black'/>
               </a>
             </li>

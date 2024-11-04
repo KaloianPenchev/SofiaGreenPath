@@ -115,28 +115,47 @@
     background-color: transparent;
   }
 
-  .recent-searches-list{
+  .recent-searches-list,
+  .favorites-list {
     list-style-type: none;
-  }
-
-  .recent-searches-item{
-  }
-
-  .favorite-button{
-    background-color: transparent;
-  }
-
-  .star-icon{
-    color: #666;;
-  }
-
-  .favorite-button:hover{
-    background-color: transparent;
-  }
-  .star-icon:hover{
-    color: #666;
+    padding: 0;
+    margin: 0;
   }
   
+  .recent-search-item,
+  .favorite-search-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    background-color: transparent;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .recent-search-item:hover,
+  .favorites-search-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .favorite-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .favorite-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
   .user-profile {
     background-color: #cccaca;
     justify-content: space-between;

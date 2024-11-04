@@ -5,7 +5,7 @@ import '../../../styles/home-page-components-styles/search-bar/RouteOptions.css'
 const RouteOptions = ({
   showOptions,
   handleOptionsClick,
-  selectedFilters = [],  // Ensure default value to avoid undefined error
+  selectedFilters = [],  
   handleFilterClick,
   canCalculateRoute,
   isCalculating,
@@ -44,18 +44,6 @@ const RouteOptions = ({
               onClick={() => handleFilterClick('pollution')}
             >
               <p>Ниво на чистота</p>
-            </li>
-            <li 
-              className={selectedFilters.includes('bike') ? 'selected' : ''}
-              onClick={() => handleFilterClick('bike')}
-            >
-              <p>Велоалеи</p>
-            </li>
-            <li 
-              className={selectedFilters.includes('ratings') ? 'selected' : ''}
-              onClick={() => handleFilterClick('ratings')}
-            >
-              <p>Оценки от потребители</p>
             </li>
           </ul>
         </nav>

@@ -1,5 +1,8 @@
 import React from "react";
 import '../../styles/landing-page-components-styles/Advantages.css';
+import airImg from '../../assets/landing-page-images/air.png';
+import bicycleImg from '../../assets/landing-page-images/bicycle.png';
+import gradeImg from '../../assets/landing-page-images/grade.png';
 
 const Advantages = () => {
   return (
@@ -7,7 +10,9 @@ const Advantages = () => {
         <h2>Защо платформата е подходяща за теб?</h2>
         <ul className="feature-list">
             <li className="feature-item">
-            <figure className="feature-image" />
+            <figure className="feature-image">
+                <img src={airImg}/>
+            </figure>
             <article className="feature-content">
                 <strong className="feature-number" aria-label="Feature 1">1</strong>
                 <h3>Реални данни за качеството на въздуха</h3>
@@ -15,7 +20,9 @@ const Advantages = () => {
             </article>
             </li>
             <li className="feature-item">
-            <figure className="feature-image" />
+            <figure className="feature-image">
+                <img src={bicycleImg}/>
+            </figure>
             <article className="feature-content">
                 <strong className="feature-number" aria-label="Feature 2">2</strong>
                 <h3>Персонализирани вело-маршрути</h3>
@@ -23,7 +30,9 @@ const Advantages = () => {
             </article>
             </li>
             <li className="feature-item">
-            <figure className="feature-image" />
+            <figure className="feature-image">
+                <img src={gradeImg}/>
+            </figure>
             <article className="feature-content">
                 <strong className="feature-number" aria-label="Feature 3">3</strong>
                 <h3>Маршрути, оценени от общността</h3>
