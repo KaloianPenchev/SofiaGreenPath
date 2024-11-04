@@ -1,0 +1,112 @@
+.testimonials {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    margin-top: 5rem;
+  }
+  
+  .testimonials__header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .testimonials__title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  .testimonials__content {
+    max-width: 64rem;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .testimonials__quote {
+    text-align: center;
+    margin: 0 0 2rem;
+  }
+  
+  .testimonials__quote p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+    color: #555;
+  }
+  
+  .testimonials__author {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .testimonials__rating {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .testimonials__star {
+    color: #ffc107;
+    font-size: 1.5rem;
+  }
+  
+  .testimonials__navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .testimonials__button {
+    background-color: #212529;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .testimonials__button:hover {
+    background-color: #343a40;
+  }
+  
+  .testimonials__button:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(33, 37, 41, 0.5);
+  }
+  
+  
+  .testimonials__quote p,
+  .testimonials__author {
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Optional: Add responsive design */
+  @media (max-width: 48rem) {
+    .testimonials {
+      padding: 2rem 1rem;
+    }
+  
+    .testimonials__title {
+      font-size: 1.5rem;
+    }
+  
+    .testimonials__quote p {
+      font-size: 1.1rem;
+    }
+  
+    .testimonials__button {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.25rem;
+    }
+  }

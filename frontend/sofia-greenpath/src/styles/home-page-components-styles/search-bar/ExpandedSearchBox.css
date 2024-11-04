@@ -1,0 +1,17 @@
+@import './SearchBox.css';
+
+.expanded-form {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  position: relative; 
+  margin-top: 2rem;
+}
+
+.separator {
+  margin-top: -1rem;
+  width: 18rem;
+}
+
+.expanded-search-input{
+  margin-top: -2rem;
+}

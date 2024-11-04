@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
+    "lucide-react": "^0.454.0",
+    "react-leaflet": "^4.2.1"
+  }
+}

@@ -1,0 +1,15 @@
+.search-bar {
+  position: fixed;
+  top: 1rem;
+  left: 5.5rem;
+  width: 20rem;
+  z-index: 900;
+  transition: all 0.3s ease;
+}
+
+.search-bar.expanded {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+  width: 20rem;
+}

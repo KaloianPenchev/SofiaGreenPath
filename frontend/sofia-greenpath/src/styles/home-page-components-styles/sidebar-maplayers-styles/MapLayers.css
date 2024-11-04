@@ -1,0 +1,110 @@
+.layers-container {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.8rem;
+  z-index: 999;
+}
+
+.layers-button {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 0.125rem solid transparent;
+  position: relative;
+  overflow: hidden;
+  height: 5.5rem;
+  width: 5.5rem;
+}
+
+.layer-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.layers-button figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-size: 0.85rem;
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.layers-button.active {
+  border-color: #E0E0E0;
+  box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+
+.layers-menu {
+  position: absolute;
+  left: calc(100% + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  margin-bottom: 0rem;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.125rem 1rem rgba(0, 0, 0, 0.08);
+  padding: 1.25rem 0.75rem;
+  min-width: 13.5rem;
+  height: 3.25rem;
+}
+
+
+
+.layers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: -2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.layers-grid figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: -0.25rem;
+  margin-bottom: -2rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.layers-grid figure:hover {
+  transform: translateY(-0.125rem);
+}
+
+.layers-grid img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  margin-bottom: 0.2rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+  border: 0.085rem solid black;
+}
+
+.layers-grid figcaption {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+}
+
+@media (max-width: 48rem) {
+  .layers-menu {
+    min-width: 16rem;
+  }
+  
+  .layers-grid img {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
