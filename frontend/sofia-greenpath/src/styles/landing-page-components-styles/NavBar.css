@@ -5,6 +5,7 @@
 
 .navbar nav {
   width: 100%;
+  max-width: 100rem;
   height: 10vh;
   margin: 0 auto;
   display: flex;
@@ -23,7 +24,6 @@
 
 .logo img {
   height: 4rem;
-  max-width: 100%;
 }
 
 .nav-links a {
@@ -40,7 +40,7 @@
 
 .cta-button {
   background-color: #00BFB3;
-  color: white !important;
+  color: white;
   padding: 0.75rem 1.25rem;
   border-radius: 1rem;
   transition: background-color 0.3s ease;
@@ -48,4 +48,18 @@
 
 .cta-button:hover {
   background-color: #00A89D;
+}
+
+@media (max-width: 768px) {
+  .navbar nav {
+    flex-direction: column;
+  }
+
+  .nav-links {
+    flex-direction: column;
+  }
+
+  .cta-button, .lang, .contacts {
+    padding: 0.5rem 1rem;
+  }
 }
