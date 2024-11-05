@@ -13,6 +13,7 @@ const HeroSection = () => {
             чист въздух и оценени от общността маршрути.
           </p>
           <a href="/register" className="start-button">Започни сега →</a>
+          <h2>Избери нови маршрути за колоездене</h2>
         </article>
         <figure className="hero-image">
           <img src={heroImg} alt="София маршрути" />
