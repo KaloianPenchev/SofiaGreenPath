@@ -75,24 +75,20 @@
   margin-top: 0vw;
 }
 
-@media (max-width: 768px) {
-  .feature-list {
-    padding-left: 0;
+@media (max-width: 2200px) {
+  
+  .feature-item{
+    margin-left: 0vw;
   }
 
-  .feature-image img {
-    width: 50%;
-    height: auto;
-  }
-
-  .feature-content {
-    padding-left: 2rem;
+  .feature-item-reversed {
+    margin-right: 2vw;
   }
 
   .arrow-icon {
-    width: 15%;
-    height: auto;
-    margin-left: 37%;
-    margin-top: -5%;
+    width: 14vw;
+    margin-left: 40vw;
+    margin-top: -2vw;
   }
+  
 }
