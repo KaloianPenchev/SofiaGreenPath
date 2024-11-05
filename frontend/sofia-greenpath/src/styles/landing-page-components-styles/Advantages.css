@@ -22,10 +22,12 @@
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-left: 15vw;
 }
 
 .feature-item-reversed {
   flex-direction: row-reverse;
+  margin-right: 25vw;
 }
 
 .feature-image img {
@@ -67,10 +69,10 @@
 }
 
 .arrow-icon {
-  width: 15%;
+  width: 10vw;
   height: auto;
-  margin-left: 37%;
-  margin-top: -5%;
+  margin-left: 37vw;
+  margin-top: 0vw;
 }
 
 @media (max-width: 768px) {
