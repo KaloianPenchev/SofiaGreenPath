@@ -23,7 +23,7 @@ const Advantages = () => {
             </li>
             <img className="arrow-icon" src={arrow1}/>
             <li className="feature-item feature-item-reversed">
-                <figure className="feature-image" style={{paddingRight: '30rem'}}>
+                <figure className="feature-image">
                     <img src={bicycleImg}/>
                 </figure>
                 <article className="feature-content">

@@ -1,35 +1,50 @@
+/* HeroSection */
 .hero {
   background-color: #F8F9FA;
-  padding: 4rem 2rem;
+  padding: 6.666vw 3.333vw; /* 4rem 2rem converted to vw */
 }
 
 .hero-content {
+  height: 65vh;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 2rem;
 }
 
 .hero-text {
-  max-width: 60%;
+  margin-left: 5vw; /* Converted from 15% to 15vw */
+  margin-top: 0;
 }
 
-.hero-text h1, .hero-text p {
+.hero-text h1 {
+  color: #22293B;
+  font-size: 3vw;
+  max-width: 37vw; /* Converted from 60% to 60vw */
   text-align: left;
 }
 
 .hero-text h2 {
-  margin-top: 10rem;
+  color: #2c2e38;
+  font-size: 1vw;
+  max-width: 30vw; /* Converted from 60% to 60vw */
+  text-align: left;
+  margin-top: 10vw; /* Converted from 10% to 10vw */
+}
+
+.hero-text p {
+  color: #717171;
+  font-size: 1vw;
+  max-width: 37vw; /* Converted from 60% to 60vw */
 }
 
 .start-button {
+  display: inline-block;
   background-color: #00BFB3;
   color: white;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  font-size: 1.3rem;
+  padding: 0.416vw 0.833vw; /* 0.5rem 1rem converted to vw */
+  border-radius: 2vw;
+  font-size: 1.3vw;
   transition: background-color 0.3s ease;
 }
 
@@ -38,22 +53,47 @@
 }
 
 .hero-image img {
-  width: 45rem;
-  height: 25rem;
-  border-radius: 2rem;
+  width: 35vw;
+  height: 45vh;
+  border-radius: 1.666vw; /* Converted from 2rem to approx 1.666vw */
+  margin-left: 5vw; /* Converted from -20% to -20vw */
 }
 
 @media (max-width: 1024px) {
-  .hero-text {
-    max-width: 100%;
+  .hero-text h1 {
+    font-size: 2.916vw; /* Converted from 3.5rem to approx 2.916vw */
   }
 
-  .hero-content {
-    flex-direction: column;
+  .hero-text p {
+    font-size: 0.416vw; /* Converted from 0.5rem to approx 0.416vw */
   }
 
   .hero-image img {
-    width: 100%;
-    height: auto;
+    width: 100vw; /* Converted from 100% to 100vw */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column; /* Stack elements vertically on mobile */
+    align-items: center; /* Center alignment of content */
+  }
+
+  .hero-text {
+    margin-left: 0; /* Remove margin for mobile alignment */
+    text-align: center; /* Center text for mobile readability */
+  }
+
+  .hero-text h1 {
+    font-size: 0.416vw; /* Converted from 0.5rem to approx 0.416vw */
+  }
+
+  .hero-text h2 {
+    margin-top: 1.666vw; /* Converted from 2rem to approx 1.666vw */
+  }
+
+  .hero-image img {
+    width: 90vw; /* Converted from 90% to 90vw */
+    margin-left: 0; /* Adjust margin for centered display */
   }
 }
