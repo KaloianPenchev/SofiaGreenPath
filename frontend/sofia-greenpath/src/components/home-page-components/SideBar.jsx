@@ -1,25 +1,28 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/home-page-components-styles/sidebar-maplayers-styles/SideBar.css';
 import logoIcon from '../../assets/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faMagnifyingGlassLocation, 
-  faGear, 
-  faBookmark,
+import {
   faCircleQuestion,
+  faGear,
+  faMagnifyingGlassLocation, 
+  faSignOut,
+  faBookmark,
   faAngleDown,
   faAngleUp,
   faStar as solidStar,
   faStar as regularStar 
 } from '@fortawesome/free-solid-svg-icons';
 
-const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
+const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expandedSection }) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isFavoritesExpanded, setIsFavoritesExpanded] = useState(false);
   const [favorites, setFavorites] = useState([]);
-  const [errorMessage] = useState('');
+  const [userName, setUserName] = useState('');
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
   const fetchFavorites = async () => {
     try {
@@ -32,21 +35,52 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
     }
   };
 
+  const fetchUserProfile = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/auth/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserName(response.data.username);
+    } catch (error) {
+      console.error("Error fetching user profile:", error.message);
+    }
+  };
+
   useEffect(() => {
     fetchFavorites();
+    fetchUserProfile();
   }, []);
 
-  const toggleFavorite = async (search) => {
+  useEffect(() => {
+    if (isOpen) {
+      switch (expandedSection) {
+        case 'recent':
+          setIsSearchExpanded(true);
+          setIsFavoritesExpanded(false);
+          break;
+        case 'favorite':
+          setIsSearchExpanded(false);
+          setIsFavoritesExpanded(true);
+          break;
+        default:
+          setIsSearchExpanded(false);
+          setIsFavoritesExpanded(false);
+          break;
+      }
+    }
+  }, [isOpen, expandedSection]);
+
+  const handleLogout = async () => {
+    // Optional: Add a POST request to the backend logout endpoint
     try {
-      await axios.post(
-        'http://localhost:5000/user/favoriteSearches',
-        { search },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      fetchFavorites(); 
-      fetchRecentSearches(); 
+      await axios.post('http://localhost:5000/auth/logout', {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      localStorage.removeItem('token');
+      navigate('/');
     } catch (error) {
-      console.error("Error toggling favorite:", error.message);
+      console.error("Logout failed:", error);
+      // Handle error, maybe stay on the page or display a message
     }
   };
 
@@ -113,8 +147,6 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
         </ul>
       </nav>
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
       <footer className="sidebar-footer">
         <ul className="footer-list">
           <li>
@@ -130,9 +162,9 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches }) => {
             </button>
           </li>
           <li>
-            <button type="button" className="footer-item user-profile">
-              <h1>Иван Иванов</h1>
-              <h1>•••</h1>
+            <button type="button" className="footer-item user-profile" onClick={handleLogout}>
+              <h1>{userName}</h1>
+              <FontAwesomeIcon icon={faSignOut} className="sign-out"/>
             </button>
           </li>
         </ul>

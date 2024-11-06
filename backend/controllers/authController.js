@@ -45,6 +45,24 @@ class AuthController {
       res.status(500).json({ message: 'Error logging in', error: error.message });
     }
   }
+
+  static async profile(req, res) {
+    try {
+      const user = await UserService.findUserById(req.userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.json({ username: user.username });
+    } catch (error) {
+      console.error("Error fetching user profile:", error.message);
+      res.status(500).json({ message: 'Failed to fetch user profile', error: error.message });
+    }
+  }
+
+  static async logout(req, res) {
+    // Implement any additional logout logic you might need here
+    res.json({ message: 'Logout successful' });
+  }
 }
 
 module.exports = AuthController;

@@ -76,6 +76,7 @@ html, body, #root {
   margin: 0;
   text-align: center;
   color: #666;
+  cursor: pointer;
 }
 
 .language-button {

@@ -16,6 +16,10 @@ const UserService = {
   findUserByUsername: async (username) => {
     return User.findOne({ where: { username } });
   },
+  
+  findUserById: async (userId) => {
+    return User.findByPk(userId);
+  },
 
   getRecentSearches: async (userId) => {
     const user = await User.findByPk(userId);

@@ -157,14 +157,16 @@
   }
 
   .user-profile {
-    background-color: #cccaca;
+    background-color: white;
     justify-content: space-between;
     margin-left: 1.4rem;
     width: 14rem;
+    border: 0.1rem solid black;
+    border-radius: 0.5vw;
   }
 
   .user-profile:hover{
-    background-color: #cccaca;
+    background-color: white;
   }
   
   .user-profile h1 {
@@ -181,10 +183,19 @@
     width: 1rem; 
     height: 1rem;
     padding: 0.5rem;
-    margin-right: 0.75rem;
+    margin-right: 0rem;
   }
   
   .sidebar-navigation,
   .sidebar-footer {
     padding: 0.5rem 0;
+  }
+
+  .sign-out{
+    color: rgb(253, 55, 55); 
+    margin-left: -5vw;
+  }
+
+  .sign-out:hover{
+    color:rgb(183, 1, 1);
   }

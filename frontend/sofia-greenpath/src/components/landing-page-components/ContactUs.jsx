@@ -17,7 +17,7 @@ const ContactUs = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setIsClosing(false);
       onClose();
-    }, 300);
+    }, 50);
   };
 
   const handleOverlayClick = (e) => {

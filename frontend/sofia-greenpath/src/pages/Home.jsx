@@ -1,3 +1,4 @@
+// Home.jsx
 import { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -14,15 +15,17 @@ const Home = () => {
   const zoom = 12.5;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  const [expandedSection, setExpandedSection] = useState(null);
   const mapRef = useRef(null);
 
-  const handleSidebarToggle = () => {
+  const handleSidebarToggle = (section = null) => {
     setIsSidebarOpen(true);
+    setExpandedSection(section);
   };
 
   const handleSidebarClose = () => {
     setIsSidebarOpen(false);
+    setExpandedSection(null);
   };
 
   const fetchRecentSearches = async () => {
@@ -37,21 +40,8 @@ const Home = () => {
     }
   };
 
-  const fetchFavorites = async () => {
-    const token = localStorage.getItem('token');
-    try {
-      const response = await axios.get('http://localhost:5000/user/favoriteSearches', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setFavorites(response.data);
-    } catch (error) {
-      console.error("Error fetching favorite searches:", error.response?.data || error.message);
-    }
-  };
-
   useEffect(() => {
     fetchRecentSearches();
-    fetchFavorites();
   }, []);
 
   return (
@@ -60,18 +50,18 @@ const Home = () => {
         <nav>
           <ul>
             <li>
-              <button className="icon-button menu-button" onClick={handleSidebarToggle}>
+              <button className="icon-button menu-button" onClick={() => handleSidebarToggle()}>
                 <FontAwesomeIcon icon={faBars} />
               </button>
             </li>
             <li>
-              <button className="icon-button bookmark-button">
+              <button className="icon-button bookmark-button" onClick={() => handleSidebarToggle('recent')}>
                 <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
               </button>
               <h1 className="icon-text">Скорошни</h1>
             </li>
             <li>
-              <button className="icon-button location-button">
+              <button className="icon-button location-button" onClick={() => handleSidebarToggle('favorite')}>
                 <FontAwesomeIcon icon={faBookmark} />
               </button>
               <h1 className="icon-text">Любими</h1>
@@ -103,6 +93,7 @@ const Home = () => {
         onClose={handleSidebarClose} 
         recentSearches={recentSearches} 
         fetchRecentSearches={fetchRecentSearches}
+        expandedSection={expandedSection}
       />
 
       <SearchBar map={mapRef} onSearchComplete={fetchRecentSearches} />
