@@ -1,136 +1,124 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/landing-page-components-styles/ContactUs.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faUser, 
+  faEnvelope, 
+  faPhone, 
+  faBuilding 
+} from '@fortawesome/free-solid-svg-icons';
 
 const ContactUs = ({ isOpen, onClose }) => {
-    const [formData, setFormData] = useState({
-      workEmail: '',
-      firstName: '',
-      lastName: '',
-      phone: '',
-      company: '',
-      employees: ''
-    });
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // Handle form submission logic here
-      console.log(formData);
+  const [isClosing, setIsClosing] = useState(false);
+  const [rating, setRating] = useState(0);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 300);
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
     };
-  
-    const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-      });
+
+    if (isOpen) {
+      window.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape);
     };
-  
-    if (!isOpen) return null;
-  
-    return (
-      <article className="modal-overlay">
-        <section className="modal-content">
-          <header className="modal-header">
-            <h2>Свържете се с отдел Продажби</h2>
-            <button 
-              type="button" 
-              onClick={onClose}
-              className="close-button"
-              aria-label="Затвори формата"
-            >
-              ×
-            </button>
-          </header>
-  
-          <form onSubmit={handleSubmit} className="contact-form">
-            <fieldset>
-              <legend className="visually-hidden">Контактна информация</legend>
-              
-              <label htmlFor="workEmail">
-                Служебен имейл <em aria-label="задължително">*</em>
-              </label>
-              <input
-                type="email"
-                id="workEmail"
-                name="workEmail"
-                required
-                value={formData.workEmail}
-                onChange={handleChange}
-              />
-  
-              <label htmlFor="firstName">
-                Име <em aria-label="задължително">*</em>
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                required
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-  
-              <label htmlFor="lastName">
-                Фамилия <em aria-label="задължително">*</em>
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                required
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-  
-              <label htmlFor="phone">
-                Телефон <em aria-label="задължително">*</em>
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                required
-                value={formData.phone}
-                onChange={handleChange}
-              />
-  
-              <label htmlFor="company">
-                Компания <em aria-label="задължително">*</em>
-              </label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                required
-                value={formData.company}
-                onChange={handleChange}
-              />
-  
-              <label htmlFor="employees">
-                Брой служители <em aria-label="задължително">*</em>
-              </label>
-              <select
-                id="employees"
-                name="employees"
-                required
-                value={formData.employees}
-                onChange={handleChange}
-              >
-                <option value="">Изберете...</option>
-                <option value="1-10">1-10</option>
-                <option value="11-50">11-50</option>
-                <option value="51-200">51-200</option>
-                <option value="201-500">201-500</option>
-                <option value="501+">501+</option>
-              </select>
-  
-              <button type="submit" className="submit-button">
-                Изпрати
-              </button>
-            </fieldset>
-          </form>
-        </section>
-      </article>
-    
+  }, [isOpen]);
+
+  if (!isOpen && !isClosing) return null;
+
+  return (
+    <aside className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleOverlayClick}>
+      <section className="modal-content">
+        <button onClick={handleClose} className="cls-button">×</button>
+        <form className="contact-form">
+          <fieldset className="form-row">
+            <section className="input-group">
+              <label htmlFor="name">Име</label>
+              <article className="input-wrapper">
+                <FontAwesomeIcon  className="input-icon" icon={faUser} />
+                <input type="text" id="name" name="name" className="inp-wrp"/>
+               </article>
+            </section>
+
+            <section className="input-group">
+              <label htmlFor="email">Имейл</label>
+              <article className="input-wrapper">
+                <FontAwesomeIcon  className="input-icon" icon={faEnvelope} />
+                <input type="email" id="email" name="email" className="inp-wrp"/>
+                
+              </article>
+            </section>
+          </fieldset>
+          
+          <fieldset className="form-row">
+            <section className="input-group">
+              <label htmlFor="phone">Номер</label>
+              <article className="input-wrapper">
+                <FontAwesomeIcon  className="input-icon" icon={faPhone} />
+                <input type="tel" id="phone" name="phone" className="inp-wrp"/>
+               </article>
+            </section>
+
+            <section className="input-group">
+              <label htmlFor="company">Компания</label>
+              <article className="input-wrapper">
+                <FontAwesomeIcon  className="input-icon" icon={faBuilding} />
+                 <input type="text" id="company" name="company" className="inp-wrp" />
+               </article>
+            </section>
+          </fieldset>
+
+          <section className="rating-group">
+            <label>Оценка</label>
+            <article className="star-rating">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  onClick={() => setRating(star)}
+                  className={star <= rating ? 'star active' : 'star'}
+                >
+                  ★
+                </button>
+              ))}
+            </article>
+          </section>
+
+          <section className="input-group">
+            <label htmlFor="feedback">Обратна връзка</label>
+            <textarea id="feedback" name="feedback" rows="4"></textarea>
+          </section>
+
+          <button type="submit" className="submit-button">
+            Изпрати
+          </button>
+        </form>
+      </section>
+    </aside>
   );
 };
 
