@@ -15,6 +15,7 @@ const Home = () => {
   const zoom = 12.5;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
+  const [favorites, setFavorites] = useState([]); // New state for favorite searches
   const [expandedSection, setExpandedSection] = useState(null);
   const mapRef = useRef(null);
 
@@ -30,18 +31,35 @@ const Home = () => {
 
   const fetchRecentSearches = async () => {
     const token = localStorage.getItem('token');
+    if (!token) return;
+
     try {
       const response = await axios.get('http://localhost:5000/user/recentSearches', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRecentSearches(response.data);
     } catch (error) {
-      console.error("Error fetching recent searches:", error.response?.data || error.message);
+      console.error("Error fetching recent searches:", error.message);
+    }
+  };
+
+  const fetchFavorites = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await axios.get('http://localhost:5000/user/favoriteSearches', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setFavorites(response.data);
+    } catch (error) {
+      console.error("Error fetching favorite searches:", error.message);
     }
   };
 
   useEffect(() => {
     fetchRecentSearches();
+    fetchFavorites();
   }, []);
 
   return (
@@ -94,6 +112,8 @@ const Home = () => {
         recentSearches={recentSearches} 
         fetchRecentSearches={fetchRecentSearches}
         expandedSection={expandedSection}
+        favorites={favorites} // Pass favorites to SideBar
+        fetchFavorites={fetchFavorites} // Pass fetchFavorites to SideBar
       />
 
       <SearchBar map={mapRef} onSearchComplete={fetchRecentSearches} />

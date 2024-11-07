@@ -36,6 +36,8 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
   };
 
   const fetchUserProfile = async () => {
+    if (!token) return;
+
     try {
       const response = await axios.get('http://localhost:5000/auth/profile', {
         headers: { Authorization: `Bearer ${token}` },
@@ -45,6 +47,26 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
       console.error("Error fetching user profile:", error.message);
     }
   };
+  
+  const toggleFavorite = async (search, token) => {
+    // Check if the token is null or empty
+    if (!token) {
+        console.error("Error toggling favorite: No token provided");
+        return;
+    }
+
+    try {
+        await axios.post(
+            'http://localhost:5000/user/favoriteSearches',
+            { search },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+        fetchFavorites(); // Refresh favorites after updating
+        fetchRecentSearches(); // Refresh recent searches after updating
+    } catch (error) {
+        console.error("Error toggling favorite:", error.message);
+    }
+};
 
   useEffect(() => {
     fetchFavorites();
@@ -71,7 +93,8 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
   }, [isOpen, expandedSection]);
 
   const handleLogout = async () => {
-    // Optional: Add a POST request to the backend logout endpoint
+    if (!token) return;
+
     try {
       await axios.post('http://localhost:5000/auth/logout', {}, {
         headers: { Authorization: `Bearer ${token}` }
@@ -79,8 +102,7 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
       localStorage.removeItem('token');
       navigate('/');
     } catch (error) {
-      console.error("Logout failed:", error);
-      // Handle error, maybe stay on the page or display a message
+      console.error("Logout failed:", error.message);
     }
   };
 

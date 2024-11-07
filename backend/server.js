@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const sequelize = require('./config/database');
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
+const sequelize = require('./config/database.js');
+const authRoutes = require('./routes/authRoutes.js');
+const userRoutes = require('./routes/userRoutes.js');
 
 const app = express();
 const PORT = 5000;
