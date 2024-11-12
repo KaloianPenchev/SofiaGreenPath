@@ -115,7 +115,7 @@ textarea:focus {
 textarea {
     resize: none;
     height: 6rem;
-    width: 40rem;
+    width: 42rem;
     text-indent: 0.5vw;
     padding-top: -0.2vw;
 }
