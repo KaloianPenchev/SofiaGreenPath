@@ -38,7 +38,7 @@ const Home = () => {
   }, [navigate]);
 
   const fetchRecentSearches = async () => {
-    const token = localStorage.getItem('token'); // Get the token from localStorage
+    const token = localStorage.getItem('token'); 
     if (!token) return;
 
     try {

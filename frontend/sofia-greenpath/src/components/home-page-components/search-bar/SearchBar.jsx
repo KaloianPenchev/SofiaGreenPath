@@ -63,7 +63,7 @@ const SearchBar = ({ map, onSearchComplete }) => {
           return;
         }
 
-        console.log("Saving recent search with token:", token); // Debugging log
+        console.log("Saving recent search with token:", token);
         await axios.post(
           'http://localhost:5000/user/recentSearches', 
           { search }, 

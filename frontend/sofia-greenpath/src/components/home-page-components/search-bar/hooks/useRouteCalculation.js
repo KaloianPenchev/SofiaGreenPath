@@ -32,7 +32,7 @@ export const useRouteCalculation = (mapRef) => {
       if (response.data.routes && response.data.routes[0]) {
         const routeCoordinates = response.data.routes[0].geometry;
 
-        // Clear previous route layer
+        
         if (routeLayer) {
           mapRef.current.removeLayer(routeLayer);
         }

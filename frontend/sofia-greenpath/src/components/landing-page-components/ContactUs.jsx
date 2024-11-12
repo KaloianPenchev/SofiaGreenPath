@@ -35,7 +35,7 @@ const ContactUs = ({ isOpen, onClose }) => {
       if (response.ok) {
         alert('Feedback submitted successfully');
         setRating(0);
-        handleClose(); // Automatically close the form after successful submission
+        handleClose();
       } else {
         alert('Failed to submit feedback');
       }

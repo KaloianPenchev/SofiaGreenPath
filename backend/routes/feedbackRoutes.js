@@ -1,4 +1,3 @@
-// routes/feedbackRoutes.js
 const express = require('express');
 const feedbackController = require('../controllers/feedbackController.js');
 

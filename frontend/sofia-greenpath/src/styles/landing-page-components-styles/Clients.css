@@ -90,7 +90,7 @@
     transition: opacity 0.3s ease;
   }
   
-  /* Optional: Add responsive design */
+  
   @media (max-width: 48rem) {
     .testimonials {
       padding: 2rem 1rem;

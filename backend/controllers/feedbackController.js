@@ -1,4 +1,3 @@
-// controllers/feedbackController.js
 const feedbackService = require('../services/feedbackService.js');
 
 const submitFeedback = async (req, res) => {

@@ -58,7 +58,7 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
 
   useEffect(() => {
     fetchFavorites();
-    fetchUserProfile(); // Fetch user profile on component mount
+    fetchUserProfile();
   }, []);
 
   useEffect(() => {
@@ -165,7 +165,7 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
           </li>
           <li>
             <button type="button" className="footer-item user-profile" onClick={handleLogout}>
-              <h1>{userName}</h1> {/* Display the username */}
+              <h1>{userName}</h1>
               <FontAwesomeIcon icon={faSignOut} className="sign-out"/>
             </button>
           </li>

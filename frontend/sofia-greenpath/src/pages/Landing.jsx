@@ -9,8 +9,6 @@ import Footer from '../components/landing-page-components/Footer';
 
 
 const Landing = () => {
-  //const [isContactFormOpen, setIsContactFormOpen] = useState(false);
-
   return (
     <main className="landing-container">
       <NavBar />
