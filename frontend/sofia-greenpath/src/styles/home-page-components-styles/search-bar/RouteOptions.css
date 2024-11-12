@@ -1,113 +1,92 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
 
-.filtering-section{
-  z-index: 3;
-  position: relative;
+.route-options-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
   font-family: 'Space Grotesk', sans-serif;
 }
-.route-options-button {
+
+  .route-options-button {
     width: 18.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0.8rem;
+    margin-left: 0.8rem;
     background-color: #f5f5f5;
     border: none;
     border-radius: 0.75rem;
-    cursor: pointer;
+    cursor: auto;
     color: #666;
     background-color: #f5f5f5;
-    margin-top: 0rem;
+    margin-top: 0.4rem;
   }
   
+  .route-options-button:hover{
+    background-color: #f5f5f5;
+  }
+
   .button-content {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin: 0;
   }
-  
+
   .button-content figcaption {
     margin: 0;
     color: #333;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
-  
-  .arrow {
-    text-decoration: none;
-    font-size: 0.75rem;
-    color: #666;
-    transition: transform 0.2s ease;
-  }
-  
-  .arrow.up {
-    transform: rotate(180deg);
-  }
-  
-  .route-options-button:hover{
-    background-color: #f5f5f5;
-  }
-  
-  .route-options-menu {
-    margin: -0.5rem 0.8rem 0.8rem;
-    background-color: #f5f5f5;
-    border-radius: 0.75rem;
-    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
-  }
-  
-  .route-options-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem 0;
-    border-radius: 0.75rem;
-    border: 0.1rem solid #000;
-  }
-  
-  .route-options-menu li {
-    padding: 0 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    border-radius: 0.5rem;
-    margin: 0.25rem 0.5rem;
-    background-color: #fff;
-  }
-  
-  .route-options-menu ul li:hover {
-    background-color: #fff;
-  }
-  
-  .route-options-menu ul li.selected {
-    background-color: #f3f0ff;
+
+  .switch {
     position: relative;
-    border: 0.1rem solid #000;
+    width: 3em; 
+    height: 1.7em; 
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: background-color 0.3s;
+    margin-top: 0.4rem;
   }
-  
-  .route-options-menu ul li.selected p {
-    color: #000;
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
-  
-  .route-options-menu ul li.selected::after {
-    content: '✓';
+
+  .slider {
     position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #7e3af2;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
   }
-  
-  .route-options-menu ul li p {
-    margin: 0;
-    padding: 0.75rem 0;
-    font-size: 0.9rem;
-    color: #333;
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em; 
+    width: 1.4em; 
+    left: 0.15em; 
+    bottom: 0.15em; 
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
   }
-  
-  .route-options-menu ul li:hover:not(.selected) {
-    background-color: #f5f5f5;
+
+  input:checked + .slider {
+    background-color: #78bbf2;
   }
-  
-  .route-options-menu li.selected:hover {
-    background-color: #ede9fe;
+
+  input:checked + .slider:before {
+    transform: translateX(1.3em); 
   }
   
   .search-button {
@@ -117,9 +96,9 @@
     width: 9rem;
     background-color: #00bfa5;
     color: white;
-    padding: 0.4rem;
-    margin: 0.8rem;
-    margin-left: 4.4rem;
+    padding: 0.5rem; 
+    margin: 0.8rem; 
+    margin-top: -0.1vw;
     border-radius: 2rem;
     border: none;
     cursor: pointer;

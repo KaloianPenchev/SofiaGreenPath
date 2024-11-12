@@ -17,6 +17,7 @@ const Home = () => {
   const [recentSearches, setRecentSearches] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [expandedSection, setExpandedSection] = useState(null);
+  const [pollutionLevels, setPollutionLevels] = useState([]); 
   const mapRef = useRef(null);
   const navigate = useNavigate();
 
@@ -69,6 +70,35 @@ const Home = () => {
     fetchRecentSearches();
     fetchFavorites();
   }, []);
+
+  
+  useEffect(() => {
+    const fetchPollutionData = async () => {
+      try {
+        const response = await axios.get('https://data.sensor.community/airrohr/v1/filter/area=42.7,23.3,10');
+        const levels = response.data
+          .map((entry) => {
+            const pm10 = entry.sensordatavalues.find((val) => val.value_type === "P1");
+            const pm25 = entry.sensordatavalues.find((val) => val.value_type === "P2");
+            return pm10 || pm25
+              ? {
+                  lat: parseFloat(entry.location.latitude),
+                  lon: parseFloat(entry.location.longitude),
+                  pm10: pm10 ? parseFloat(pm10.value) : null,
+                  pm25: pm25 ? parseFloat(pm25.value) : null,
+                  value: pm10 ? parseFloat(pm10.value) : pm25 ? parseFloat(pm25.value) : null,
+                }
+              : null;
+          })
+          .filter(Boolean);
+        setPollutionLevels(levels); 
+      } catch (error) {
+        console.error("Error fetching pollution data:", error);
+      }
+    };
+
+    fetchPollutionData();
+  }, []); 
 
   return (
     <main className="home">
@@ -124,7 +154,8 @@ const Home = () => {
         fetchFavorites={fetchFavorites}
       />
 
-      <SearchBar map={mapRef} onSearchComplete={fetchRecentSearches} />
+      
+      <SearchBar map={mapRef} onSearchComplete={fetchRecentSearches} pollutionLevels={pollutionLevels} />
 
       <section className="map-container">
         <MapContainer
@@ -139,7 +170,7 @@ const Home = () => {
           />
           <ZoomControl position="bottomright"/>
         </MapContainer>
-        <MapLayers mapRef={mapRef} />
+        <MapLayers mapRef={mapRef} pollutionLevels={pollutionLevels} />
       </section>
     </main>
   );

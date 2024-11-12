@@ -7,10 +7,10 @@ import stationIcon from '../../../assets/home-page-images/station.png';
 import { renderBicycleLanes, renderPollutionStations, renderPollutionLevels } from './hooks/mapLayerHelpers';
 import useMapLayerData from './hooks/useMapLayerData';
 
-const MapLayers = ({ mapRef }) => {
+const MapLayers = ({ mapRef, pollutionLevels }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeLayer, setActiveLayer] = useState(null);
-  const { bicycleData, pollutionStations, pollutionLevels } = useMapLayerData();
+  const { bicycleData, pollutionStations} = useMapLayerData();
 
   const handleLayerClick = (layer) => {
     const map = mapRef.current;

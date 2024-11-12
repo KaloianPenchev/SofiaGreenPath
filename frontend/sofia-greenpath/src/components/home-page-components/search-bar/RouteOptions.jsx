@@ -1,56 +1,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSliders, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faSliders } from '@fortawesome/free-solid-svg-icons';
 import '../../../styles/home-page-components-styles/search-bar/RouteOptions.css';
 
 const RouteOptions = ({
-  showOptions,
-  handleOptionsClick,
-  selectedFilters = [],  
-  handleFilterClick,
+  isCleanlinessChecked,
+  setIsCleanlinessChecked,
   canCalculateRoute,
   isCalculating,
   onSearchClick
 }) => {
   return (
-    <section className="filtering-section">
-      <button 
-        className="route-options-button" 
-        type="button"
-        onClick={handleOptionsClick}
-      >
+    <section className="route-options-container">
+      <button className="route-options-button" type="button">
         <figure className="button-content">
-          <FontAwesomeIcon icon={faSliders} />
-          <figcaption>Опции за маршрут</figcaption>
+          <FontAwesomeIcon style={{ fontSize: '0.8vw' }} icon={faSliders} />
+          <figcaption>Ниво на чистота</figcaption>
         </figure>
-        <abbr 
-          title={showOptions ? 'Close options' : 'Open options'}
-          className={`arrow ${showOptions ? 'up' : ''}`}
-        >
-          ▼
-        </abbr>
+        <label className="switch">
+          <input
+            className="checkbox"
+            type="checkbox"
+            checked={isCleanlinessChecked}
+            onChange={(e) => setIsCleanlinessChecked(e.target.checked)}
+          />
+          <span className="slider"></span>
+        </label>
       </button>
-
-      {showOptions && (
-        <nav className="route-options-menu">
-          <ul>
-            <li 
-              className={selectedFilters.includes('shortest') ? 'selected' : ''}
-              onClick={() => handleFilterClick('shortest')}
-            >
-              <p>Най-кратък път</p>
-            </li>
-            <li 
-              className={selectedFilters.includes('pollution') ? 'selected' : ''}
-              onClick={() => handleFilterClick('pollution')}
-            >
-              <p>Ниво на чистота</p>
-            </li>
-          </ul>
-        </nav>
-      )}
-
-      <button 
-        className="search-button" 
+      <button
+        className="search-button"
         type="button"
         onClick={onSearchClick}
         disabled={!canCalculateRoute || isCalculating}
