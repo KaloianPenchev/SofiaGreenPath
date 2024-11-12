@@ -16,27 +16,18 @@ import {
   faStar as regularStar 
 } from '@fortawesome/free-solid-svg-icons';
 
-const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expandedSection }) => {
+const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expandedSection, favorites, fetchFavorites }) => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isFavoritesExpanded, setIsFavoritesExpanded] = useState(false);
-  const [favorites, setFavorites] = useState([]);
   const [userName, setUserName] = useState('');
-  const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
-  const fetchFavorites = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/user/favoriteSearches', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setFavorites(response.data);
-    } catch (error) {
-      console.error("Error fetching favorite searches:", error.message);
-    }
-  };
-
   const fetchUserProfile = async () => {
-    if (!token) return;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
 
     try {
       const response = await axios.get('http://localhost:5000/auth/profile', {
@@ -47,30 +38,27 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
       console.error("Error fetching user profile:", error.message);
     }
   };
-  
-  const toggleFavorite = async (search, token) => {
-    // Check if the token is null or empty
-    if (!token) {
-        console.error("Error toggling favorite: No token provided");
-        return;
-    }
+
+  const toggleFavorite = async (search) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
 
     try {
-        await axios.post(
-            'http://localhost:5000/user/favoriteSearches',
-            { search },
-            { headers: { Authorization: `Bearer ${token}` } }
-        );
-        fetchFavorites(); // Refresh favorites after updating
-        fetchRecentSearches(); // Refresh recent searches after updating
+      await axios.post(
+        'http://localhost:5000/user/favoriteSearches',
+        { search },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      fetchFavorites();
+      fetchRecentSearches();
     } catch (error) {
-        console.error("Error toggling favorite:", error.message);
+      console.error("Error toggling favorite:", error.message);
     }
-};
+  };
 
   useEffect(() => {
     fetchFavorites();
-    fetchUserProfile();
+    fetchUserProfile(); // Fetch user profile on component mount
   }, []);
 
   useEffect(() => {
@@ -92,18 +80,10 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
     }
   }, [isOpen, expandedSection]);
 
-  const handleLogout = async () => {
-    if (!token) return;
-
-    try {
-      await axios.post('http://localhost:5000/auth/logout', {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      localStorage.removeItem('token');
-      navigate('/');
-    } catch (error) {
-      console.error("Logout failed:", error.message);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token'); 
+    navigate('/');
   };
 
   return (
@@ -119,8 +99,8 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
         <ul className="navigation-list">
           <li>
             <button type="button" className="nav-item" onClick={() => setIsSearchExpanded(!isSearchExpanded)}>
-            <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
-            <h1>Скорошни търсения</h1>
+              <FontAwesomeIcon icon={faMagnifyingGlassLocation} />
+              <h1>Скорошни търсения</h1>
             </button>
             <button className="expand-loc-btn" onClick={() => setIsSearchExpanded(!isSearchExpanded)}>
               <FontAwesomeIcon icon={isSearchExpanded ? faAngleUp : faAngleDown} />
@@ -185,7 +165,7 @@ const SideBar = ({ isOpen, onClose, recentSearches, fetchRecentSearches, expande
           </li>
           <li>
             <button type="button" className="footer-item user-profile" onClick={handleLogout}>
-              <h1>{userName}</h1>
+              <h1>{userName}</h1> {/* Display the username */}
               <FontAwesomeIcon icon={faSignOut} className="sign-out"/>
             </button>
           </li>

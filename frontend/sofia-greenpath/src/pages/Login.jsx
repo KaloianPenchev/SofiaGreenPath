@@ -1,4 +1,3 @@
-// Login.jsx
 import '../../src/styles/main-pages/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -11,25 +10,25 @@ const Login = () => {
     e.preventDefault();
     const username = e.target.username.value;
     const password = e.target.password.value;
-  
+
     try {
       const response = await fetch('http://localhost:5000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
-        alert('Login successful');
-        localStorage.setItem('token', data.token); // Store JWT token
+        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('token', data.token);
         navigate('/home');
       } else {
-        alert(data.message);
+        setErrorMessage(data.message || 'Login failed');
       }
     } catch (error) {
       console.error('Login failed:', error);
-      alert('Login failed');
+      setErrorMessage('An error occurred during login. Please try again later.');
     }
   };
 

@@ -1,9 +1,8 @@
-// controllers/authController.js
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const UserService = require('../services/userService');
 
-const SECRET_KEY = '121di1hddh112e1d=.apada[dasduasdagd';
+const SECRET_KEY = 'my_api_19273846_fkapdhedhdurtweqb';
 
 class AuthController {
   static async register(req, res) {
@@ -11,9 +10,9 @@ class AuthController {
     try {
       const user = await UserService.createUser(email, username, password);
       const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
-      res.status(201).json({ message: 'User registered successfully', token });
+      res.status(201).json({ message: 'Потребителят е успешно регистриран', token });
     } catch (error) {
-      res.status(500).json({ message: 'Registration failed', error: error.message });
+      res.status(500).json({ message: 'Регистрацията не беше успешна', error: error.message });
     }
   }
 
@@ -22,22 +21,24 @@ class AuthController {
     try {
       const user = await UserService.findUserByUsername(username);
       if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ message: 'Invalid username or password' });
+        return res.status(401).json({ message: 'Невалидно потребителско име или парола' });
       }
       const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: '1h' });
-      res.json({ message: 'Login successful', token });
+      res.json({ message: 'Входът е успешен', token });
     } catch (error) {
-      res.status(500).json({ message: 'Error logging in', error: error.message });
+      res.status(500).json({ message: 'Грешка при влизане', error: error.message });
     }
   }
-
+  
   static async profile(req, res) {
     try {
+      console.log("Извличане на профил за потребител с ID:", req.userId); 
       const user = await UserService.findUserById(req.userId);
-      if (!user) return res.status(404).json({ message: 'User not found' });
+      if (!user) return res.status(404).json({ message: 'Потребителят не е намерен' });
       res.json({ username: user.username });
     } catch (error) {
-      res.status(500).json({ message: 'Failed to fetch user profile', error: error.message });
+      console.error("Неуспешно извличане на потребителския профил:", error.message);
+      res.status(500).json({ message: 'Неуспешно извличане на потребителския профил', error: error.message });
     }
   }
 }

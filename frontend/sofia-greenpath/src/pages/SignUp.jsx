@@ -1,4 +1,3 @@
-// SignUp.jsx
 import '../../src/styles/main-pages/SignUp.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -23,8 +22,9 @@ const SignUp = () => {
       const data = await response.json();
       
       if (response.ok) {
-        alert('Registration successful');
-        navigate('/home');
+        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem('token', data.token);
+        navigate('/home'); 
       } else {
         setErrorMessage(data.message || 'Registration failed');
       }

@@ -41,7 +41,7 @@ const UserService = {
     const updatedRecent = [search, ...recent.filter(item => item !== search)].slice(0, 10);
 
     user.recentSearches = updatedRecent;
-    if (user.favouriteSearches.includes(search)) {
+    if (user.favouriteSearches && user.favouriteSearches.includes(search)) {
       user.favouriteSearches = user.favouriteSearches.filter(fav => fav !== search);
     }
     await user.save();

@@ -57,14 +57,22 @@ const SearchBar = ({ map, onSearchComplete }) => {
 
       try {
         const token = localStorage.getItem('token');
+        if (!token) {
+          console.error("Token not found");
+          alert("You need to log in to save recent searches.");
+          return;
+        }
+
+        console.log("Saving recent search with token:", token); // Debugging log
         await axios.post(
           'http://localhost:5000/user/recentSearches', 
           { search }, 
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        onSearchComplete();  // Update SideBar recent searches
+        onSearchComplete();
       } catch (error) {
-        console.error("Error saving recent search:", error);
+        console.error("Error saving recent search:", error.message || error);
+        alert("Error: Unable to save search.");
       }
     }
   };

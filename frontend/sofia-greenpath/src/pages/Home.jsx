@@ -1,5 +1,5 @@
-// Home.jsx
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../../src/styles/main-pages/Home.css';
@@ -15,9 +15,10 @@ const Home = () => {
   const zoom = 12.5;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
-  const [favorites, setFavorites] = useState([]); // New state for favorite searches
+  const [favorites, setFavorites] = useState([]);
   const [expandedSection, setExpandedSection] = useState(null);
   const mapRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSidebarToggle = (section = null) => {
     setIsSidebarOpen(true);
@@ -29,8 +30,15 @@ const Home = () => {
     setExpandedSection(null);
   };
 
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   const fetchRecentSearches = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token'); // Get the token from localStorage
     if (!token) return;
 
     try {
@@ -112,8 +120,8 @@ const Home = () => {
         recentSearches={recentSearches} 
         fetchRecentSearches={fetchRecentSearches}
         expandedSection={expandedSection}
-        favorites={favorites} // Pass favorites to SideBar
-        fetchFavorites={fetchFavorites} // Pass fetchFavorites to SideBar
+        favorites={favorites}
+        fetchFavorites={fetchFavorites}
       />
 
       <SearchBar map={mapRef} onSearchComplete={fetchRecentSearches} />
@@ -123,11 +131,7 @@ const Home = () => {
           center={mapCenter}
           zoom={zoom}
           zoomControl={false}
-          ref={mapRef} 
-          whenCreated={(mapInstance) => { 
-            mapRef.current = mapInstance;
-            console.log("MapContainer created:", mapInstance);
-          }}
+          ref={mapRef}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
