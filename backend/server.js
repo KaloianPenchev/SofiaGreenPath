@@ -1,8 +1,10 @@
+// server.js
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/database.js');
 const authRoutes = require('./routes/authRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
+const feedbackRoutes = require('./routes/feedbackRoutes.js'); // Import the new route
 
 const app = express();
 const PORT = 5000;
@@ -15,6 +17,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/feedback', feedbackRoutes); // Register feedback route
 
 sequelize.sync()
   .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))

@@ -12,6 +12,39 @@ const ContactUs = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [rating, setRating] = useState(0);
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const feedbackData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      phone: e.target.phone.value,
+      company: e.target.company.value,
+      rating,
+      feedback: e.target.feedback.value,
+    };
+  
+    try {
+      const response = await fetch('http://localhost:5000/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(feedbackData),
+      });
+      
+      if (response.ok) {
+        alert('Feedback submitted successfully');
+        setRating(0);
+        handleClose(); // Automatically close the form after successful submission
+      } else {
+        alert('Failed to submit feedback');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
+  };
+
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
@@ -54,7 +87,7 @@ const ContactUs = ({ isOpen, onClose }) => {
     <aside className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleOverlayClick}>
       <section className="modal-content">
         <button onClick={handleClose} className="cls-button">×</button>
-        <form className="contact-form">
+        <form className="contact-form" onSubmit={handleSubmit}>
           <fieldset className="form-row">
             <section className="input-group">
               <label htmlFor="name">Име</label>

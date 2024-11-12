@@ -32,12 +32,10 @@ class AuthController {
   
   static async profile(req, res) {
     try {
-      console.log("Извличане на профил за потребител с ID:", req.userId); 
       const user = await UserService.findUserById(req.userId);
       if (!user) return res.status(404).json({ message: 'Потребителят не е намерен' });
       res.json({ username: user.username });
     } catch (error) {
-      console.error("Неуспешно извличане на потребителския профил:", error.message);
       res.status(500).json({ message: 'Неуспешно извличане на потребителския профил', error: error.message });
     }
   }
