@@ -12,19 +12,31 @@ const ContactUs = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [rating, setRating] = useState(0);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Form data
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const phone = e.target.phone.value;
+    const company = e.target.company.value;
+    const feedback = e.target.feedback.value;
+
+    // Validation checks
+    if (!name || !email || !phone || !company || !feedback || rating === 0) {
+      alert('Моля, попълнете всички полета и дайте оценка.');
+      return;
+    }
+
     const feedbackData = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      company: e.target.company.value,
+      name,
+      email,
+      phone,
+      company,
       rating,
-      feedback: e.target.feedback.value,
+      feedback,
     };
-  
+
     try {
       const response = await fetch('http://localhost:5000/feedback', {
         method: 'POST',
@@ -33,15 +45,15 @@ const ContactUs = ({ isOpen, onClose }) => {
       });
       
       if (response.ok) {
-        alert('Feedback submitted successfully');
+        alert('Обратната връзка беше изпратена успешно');
         setRating(0);
         handleClose();
       } else {
-        alert('Failed to submit feedback');
+        alert('Неуспешно изпращане на обратната връзка');
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred');
+      console.error('Грешка:', error);
+      alert('Възникна грешка');
     }
   };
 
@@ -93,7 +105,7 @@ const ContactUs = ({ isOpen, onClose }) => {
               <label htmlFor="name">Име</label>
               <article className="input-wrapper">
                 <FontAwesomeIcon  className="input-icon" icon={faUser} />
-                <input type="text" id="name" name="name" className="inp-wrp"/>
+                <input type="text" id="name" name="name" className="inp-wrp" required />
                </article>
             </section>
 
@@ -101,7 +113,7 @@ const ContactUs = ({ isOpen, onClose }) => {
               <label htmlFor="email">Имейл</label>
               <article className="input-wrapper">
                 <FontAwesomeIcon  className="input-icon" icon={faEnvelope} />
-                <input type="email" id="email" name="email" className="inp-wrp"/>
+                <input type="email" id="email" name="email" className="inp-wrp" required />
                 
               </article>
             </section>
@@ -112,7 +124,7 @@ const ContactUs = ({ isOpen, onClose }) => {
               <label htmlFor="phone">Номер</label>
               <article className="input-wrapper">
                 <FontAwesomeIcon  className="input-icon" icon={faPhone} />
-                <input type="tel" id="phone" name="phone" className="inp-wrp"/>
+                <input type="tel" id="phone" name="phone" className="inp-wrp" required />
                </article>
             </section>
 
@@ -120,7 +132,7 @@ const ContactUs = ({ isOpen, onClose }) => {
               <label htmlFor="company">Компания</label>
               <article className="input-wrapper">
                 <FontAwesomeIcon  className="input-icon" icon={faBuilding} />
-                 <input type="text" id="company" name="company" className="inp-wrp" />
+                 <input type="text" id="company" name="company" className="inp-wrp" required />
                </article>
             </section>
           </fieldset>
@@ -143,7 +155,7 @@ const ContactUs = ({ isOpen, onClose }) => {
 
           <section className="input-group">
             <label htmlFor="feedback">Обратна връзка</label>
-            <textarea id="feedback" name="feedback" rows="4"></textarea>
+            <textarea id="feedback" name="feedback" rows="4" required></textarea>
           </section>
 
           <button type="submit" className="submit-button">

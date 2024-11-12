@@ -24,11 +24,11 @@ const Login = () => {
         localStorage.setItem('token', data.token);
         navigate('/home');
       } else {
-        setErrorMessage(data.message || 'Login failed');
+        setErrorMessage(data.message || 'Входът не бе успешен');
       }
     } catch (error) {
-      console.error('Login failed:', error);
-      setErrorMessage('An error occurred during login. Please try again later.');
+      console.error('Входът не бе успешен:', error);
+      setErrorMessage('Възникна грешка при вход. Моля, опитайте отново по-късно.');
     }
   };
 

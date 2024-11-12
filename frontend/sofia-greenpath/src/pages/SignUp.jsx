@@ -26,11 +26,11 @@ const SignUp = () => {
         localStorage.setItem('token', data.token);
         navigate('/home'); 
       } else {
-        setErrorMessage(data.message || 'Registration failed');
+        setErrorMessage(data.message || 'Регистрацията не бе успешна');
       }
     } catch (error) {
-      console.error('Registration failed:', error);
-      setErrorMessage('An error occurred during registration. Please try again later.');
+      console.error('Регистрацията не бе успешна:', error);
+      setErrorMessage('Възникна грешка при регистрацията. Моля, опитайте отново по-късно.');
     }
   };
 
