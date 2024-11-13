@@ -11,7 +11,8 @@ import axios from 'axios';
 const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
   const [isCleanlinessChecked, setIsCleanlinessChecked] = useState(false);
 
-  const { calculateRoute, isCalculating, addStartMarker, addEndMarker, clearRouteAndMarkers } = useRouteCalculation(map, pollutionLevels);
+  const { calculateRoute, isCalculating, addStartMarker, addEndMarker, clearRouteAndMarkers } = 
+    useRouteCalculation(map, pollutionLevels);
 
   const {
     firstDestination,
@@ -40,15 +41,22 @@ const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
 
   const handleSearchClick = async (e) => {
     e.preventDefault();
+
     if (canShowRoute) {
       console.log(`Searching route with cleanliness checked: ${isCleanlinessChecked}`);
       await calculateRoute(selectedFirst, selectedSecond, isCleanlinessChecked);
+      
       const search = `${selectedFirst.displayName} - ${selectedSecond.displayName}`;
       try {
         const token = localStorage.getItem('token');
         if (!token) return;
+
         console.log('Saving recent search:', search);
-        await axios.post('http://localhost:5000/user/recentSearches', { search }, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.post(
+          'http://localhost:5000/user/recentSearches',
+          { search },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         onSearchComplete();
       } catch (error) {
         console.error('Error saving search:', error);
@@ -62,6 +70,7 @@ const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
     console.log(`Suggestion selected for ${inputType}: ${displayName} at [${coordinates.lat}, ${coordinates.lng}]`);
     handleSuggestionClick(displayName, inputType, coordinates);
     clearSuggestions();
+
     if (inputType === 'first') {
       clearRouteAndMarkers();
       addStartMarker(coordinates);
@@ -73,13 +82,51 @@ const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
 
   return (
     <header className={`search-bar ${isExpanded ? 'expanded' : ''}`}>
-      <form onSubmit={handleSearchClick} onKeyPress={(e) => handleKeyPress(e, suggestions, activeInput, handleSuggestionSelection)}>
+      <form 
+        onSubmit={handleSearchClick} 
+        onKeyPress={(e) => handleKeyPress(e, suggestions, activeInput, handleSuggestionSelection)}
+      >
         {!isExpanded ? (
-          <SearchBox destination={firstDestination} handleInputChange={(e) => { setFirstDestination(e.target.value); handleInputChange(e, 'first'); }} suggestions={activeInput === 'first' ? suggestions : []} handleSuggestionClick={handleSuggestionSelection} isLocationSelected={!!selectedFirst} onDirectionClick={handleDirectionClick} />
+          <SearchBox 
+            destination={firstDestination}
+            handleInputChange={(e) => {
+              setFirstDestination(e.target.value);
+              handleInputChange(e, 'first');
+            }}
+            suggestions={activeInput === 'first' ? suggestions : []}
+            handleSuggestionClick={handleSuggestionSelection}
+            isLocationSelected={!!selectedFirst}
+            onDirectionClick={handleDirectionClick}
+          />
         ) : (
           <>
-            <ExpandedSearchBox firstDestination={firstDestination} secondDestination={secondDestination} handleInputChange={(e, inputType) => { if (inputType === 'first') { setFirstDestination(e.target.value); } else { setSecondDestination(e.target.value); } handleInputChange(e, inputType); }} suggestions={suggestions} handleSuggestionClick={handleSuggestionSelection} activeInput={activeInput} onSwap={handleSwapLocations} onClear={handleCollapseForm} />
-            <RouteOptions isCleanlinessChecked={isCleanlinessChecked} setIsCleanlinessChecked={(checked) => { console.log(`Cleanliness checked changed: ${checked}`); setIsCleanlinessChecked(checked); }} canCalculateRoute={canShowRoute} isCalculating={isCalculating} onSearchClick={handleSearchClick} />
+            <ExpandedSearchBox 
+              firstDestination={firstDestination}
+              secondDestination={secondDestination}
+              handleInputChange={(e, inputType) => {
+                if (inputType === 'first') {
+                  setFirstDestination(e.target.value);
+                } else {
+                  setSecondDestination(e.target.value);
+                }
+                handleInputChange(e, inputType);
+              }}
+              suggestions={suggestions}
+              handleSuggestionClick={handleSuggestionSelection}
+              activeInput={activeInput}
+              onSwap={handleSwapLocations}
+              onClear={handleCollapseForm}
+            />
+            <RouteOptions 
+              isCleanlinessChecked={isCleanlinessChecked}
+              setIsCleanlinessChecked={(checked) => {
+                console.log(`Cleanliness checked changed: ${checked}`);
+                setIsCleanlinessChecked(checked);
+              }}
+              canCalculateRoute={canShowRoute}
+              isCalculating={isCalculating}
+              onSearchClick={handleSearchClick}
+            />
           </>
         )}
       </form>

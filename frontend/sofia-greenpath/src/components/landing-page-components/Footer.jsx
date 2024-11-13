@@ -11,7 +11,7 @@ const Footer = () => {
       <section className="footer-container">
         <article className="footer-brand">
           <img src={logoIcon} alt="Sofia Greenpath" className="footer-logo" />
-          <small className="footer-copyright">© 2024 Всички права запазени.</small>
+          <small className="footer-copyright">© 2024 Всички права са запазени.</small>
         </article>
 
         <nav className="footer-navigation">
