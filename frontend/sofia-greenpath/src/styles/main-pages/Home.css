@@ -120,3 +120,10 @@ html, body, #root {
   height: 100%;
   width: 100%;
 }
+
+.menu-button:hover,
+.bookmark-button:hover,
+.location-button:hover{
+  color: #00bfa5;
+
+}

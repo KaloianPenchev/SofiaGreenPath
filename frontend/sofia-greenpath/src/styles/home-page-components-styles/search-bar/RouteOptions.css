@@ -91,21 +91,24 @@
   }
   .tooltip {
     position: absolute;
-    top: 6.5vw; 
-    left: 20vw;
+    top: 9rem;
+    left: 25.5rem;
     transform: translateX(-50%);
     background-color: white;
     color: black;
-    padding-top: 0.5rem; 
-    padding-bottom: 0.5rem; 
+    padding: 0.5rem; 
     border-radius: 0.4em;
     font-size: 1em;
-    width: 14vw; 
+    width: 12.6rem;
     white-space: normal;
     box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.3);
     z-index: 10;
-    text-align:center;
-}
+    text-align: center;
+  }
+
+  .icon-info-1:hover{
+    color: #00bfa5;
+  }
 
 
   .search-button {

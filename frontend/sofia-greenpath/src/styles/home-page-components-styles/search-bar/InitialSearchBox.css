@@ -34,3 +34,10 @@
   z-index: 2;
   color: #000;
 }
+
+.direction-icon:hover,
+.xmark-icon:hover,
+.rotate-icon:hover{
+  color:#00bfa5;
+
+}
