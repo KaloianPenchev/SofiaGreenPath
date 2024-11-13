@@ -23,7 +23,6 @@ export const useRouteCalculation = (mapRef, pollutionLevels) => {
   });
 
   const getPollutionColor = (value) => {
-    console.log(`Determining color for pollution level: ${value}`);
     if (value > 100) return '#800080';
     if (value > 75) return '#ff0000';
     if (value > 50) return '#ff7e00';
@@ -34,7 +33,6 @@ export const useRouteCalculation = (mapRef, pollutionLevels) => {
   const getSegmentColor = (startLat, startLng, endLat, endLng) => {
     
     if (!pollutionLevels || pollutionLevels.length === 0) {
-      console.warn("No pollution data available or pollutionLevels is empty.");
       return '#0066CC'; 
     }
 
@@ -47,16 +45,10 @@ export const useRouteCalculation = (mapRef, pollutionLevels) => {
       const startDistance = circleCenter.distanceTo(startPoint);
       const endDistance = circleCenter.distanceTo(endPoint);
 
-      console.log(`Checking segment from [${startLat}, ${startLng}] to [${endLat}, ${endLng}]`);
-      console.log(`Circle at [${level.lat}, ${level.lon}] with pollution level ${level.value}`);
-      console.log(`Distances - Start: ${startDistance}, End: ${endDistance}`);
-
       if (startDistance < 400 || endDistance < 400) {
-        console.log(`Segment intersects with pollution circle. Applying color.`);
         return getPollutionColor(level.value);
       }
     }
-    console.log("No intersection with any pollution circles. Defaulting to blue color.");
     return '#0066CC'; 
   };
 
@@ -65,7 +57,6 @@ export const useRouteCalculation = (mapRef, pollutionLevels) => {
 
   
   if (!pollutionLevels || pollutionLevels.length === 0) {
-    console.warn("Pollution levels data is not available yet. Route calculation will wait.");
     return; 
   }
 

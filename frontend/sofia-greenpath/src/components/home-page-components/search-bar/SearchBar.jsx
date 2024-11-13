@@ -43,7 +43,6 @@ const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
     e.preventDefault();
 
     if (canShowRoute) {
-      console.log(`Searching route with cleanliness checked: ${isCleanlinessChecked}`);
       await calculateRoute(selectedFirst, selectedSecond, isCleanlinessChecked);
       
       const search = `${selectedFirst.displayName} - ${selectedSecond.displayName}`;
@@ -51,7 +50,6 @@ const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        console.log('Saving recent search:', search);
         await axios.post(
           'http://localhost:5000/user/recentSearches',
           { search },
@@ -67,7 +65,6 @@ const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
   };
 
   const handleSuggestionSelection = (displayName, inputType, coordinates) => {
-    console.log(`Suggestion selected for ${inputType}: ${displayName} at [${coordinates.lat}, ${coordinates.lng}]`);
     handleSuggestionClick(displayName, inputType, coordinates);
     clearSuggestions();
 
@@ -120,7 +117,6 @@ const SearchBar = ({ map, onSearchComplete, pollutionLevels }) => {
             <RouteOptions 
               isCleanlinessChecked={isCleanlinessChecked}
               setIsCleanlinessChecked={(checked) => {
-                console.log(`Cleanliness checked changed: ${checked}`);
                 setIsCleanlinessChecked(checked);
               }}
               canCalculateRoute={canShowRoute}
